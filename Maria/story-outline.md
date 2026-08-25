@@ -1,8 +1,11 @@
 # Maria's Story: Why Medicaid CIN Belongs in Every Data Feed
 
-## Our Goal
+## Project Goal
 
-Convince stakeholders that adding Medicaid CIN to health data feeds (labs, clinical documents, surveillance reports) is worth the effort. We do this through Maria — a single fictional person whose records fragment across three systems because CIN is missing from two of them. The story is simple, visual, and hard to argue with.
+Convince stakeholders that adding Medicaid CIN to health data feeds is worth the effort. We do this through:
+1. **Maria's Story** — a person whose records fragment because CIN is missing
+2. **The Duplicate CIN Story** — showing that CIN errors don't break matching (addresses the counterargument)
+3. **The Ask** — the technical plan for getting CIN into each QE's data flow
 
 ---
 
@@ -28,56 +31,106 @@ Maria is a Medicaid member who is HIV-positive and pregnant, but no system can s
 | **Zip** | 12210 | 3495 | 13492 |
 | **CIN** | A123B456 | *missing* | *missing* |
 
-Three different VeratoLinkIDs. Three different addresses. Three different MRNs. One name change. Zero CIN in the feeds that matter.
+Three different VeratoLinkIDs. Three different addresses. Three different MRNs. One name change (marriage). Zero CIN in the feeds that matter.
 
 ---
 
-## Story Arc
+## Maria's Life Journey (for narrative context)
 
-### Scene 1: Maria signs up for Medicaid (2019)
-She lives with her parents in Albany. Gets CIN A123B456. Clean record. One person.
-
-### Scene 2: Maria tests HIV-positive (2020)
-She moved to Utica. The HIV lab result flows through HealthiX but **does not include CIN**. Different address + different MRN = the MPI can't link it. New VeratoLinkID created. Now she's two people.
-
-### Scene 3: Maria is pregnant (2023)
-She moved to Whitesborough and changed her name to Rodriguez. Her PCP sends a CCD through HixNY but **does not include CIN**. New name + new address + new MRN = the MPI can't link it. Third VeratoLinkID created. Now she's three people.
-
-### Scene 4: The system fails Maria
-Medicaid has a program for pregnant HIV-positive members. It queries: "Who is enrolled, HIV-positive, AND pregnant?" Maria should appear. She doesn't. Three records, three identities, zero overlap. No outreach fires.
-
-### Scene 5: How CIN fixes it
-Replay the same story, but this time CIN A123B456 is in every feed. The MPI matches on CIN — deterministic, instant, no scoring needed. One VeratoLinkID. One Maria. Outreach fires. She gets help.
+- **Jan 2019** — Maria is 21, living with her parents in Albany. Mom helps her sign up for Medicaid. Assigned CIN A123B456.
+- **Jan 2020** — Maria moves to her first apartment in Utica (~90 miles away). Fresh start. Tests HIV-positive at a local clinic.
+- **Jan 2023** — Maria has married Carlos Rodriguez. They move to Whitesborough (near Utica) to be closer to his family. Her PCP confirms she's pregnant.
 
 ---
 
-## What We're Selling
+## Story Arc (as built in index.html)
 
-**The ask:** Include Medicaid CIN in every health data feed that might contain a Medicaid member.
+### The site opens with Maria as a person
+- SVG portrait
+- She's excited (pregnant) and concerned (HIV)
+- She's on Medicaid — and Medicaid wants to help her with specific programs
+- But the system can't find her
 
-**Why it works:**
-- CIN is permanent — assigned once, never changes
-- CIN is deterministic — it matches or it doesn't, no probabilistic scoring
-- CIN is already known — providers verify eligibility (which returns CIN) before billing
-- CIN cuts through all the noise: name changes, address changes, provider changes, MRN changes
+### The MPI sees 3 strangers
+- Three identity cards with hover tooltips showing full demographics
+- Each card has a different VeratoLinkID
+- Hover reveals field-by-field data (green = match, red = mismatch/missing)
+- Callout explains why matching fails
 
-**What it enables:**
-- Programs find the people they're designed to help
-- Care coordination starts on time, not months late (or never)
-- The MPI links records it otherwise can't
-- Vulnerable populations become visible instead of fragmented
+### Maria falls through the cracks
+- The outreach query can't find her across the three identities
+- No care coordination begins
+
+### CIN fixes it (timeline)
+- Maria's life journey told as a vertical timeline (2019 → 2020 → 2023)
+- Each milestone shows full demographics with CIN in green
+- CIN links all records instantly across 4 years, 3 cities, and a name change
 
 ---
 
-## Goals / To-Do
+## Story 2: Duplicate CIN (Tom Jones)
 
-1. ~~Write Maria's demographics for each scene~~ ✓
-2. ~~Write each scene as a standalone file~~ ✓
-3. Build a simple visual/presentation that walks through the 5 scenes
-4. Show the side-by-side: "without CIN" vs "with CIN"
-5. Quantify the gap — how many Medicaid members could be affected?
-6. Identify which feeds should carry CIN first (highest impact)
-7. Draft the actual ask / proposal for stakeholders
+Addresses the counterargument: "won't errors create false links?"
+
+- Tom Jones (DOB 11/3/1955, Male, Buffalo) gets same CIN as Maria through data entry error
+- MPI compares: 1 field matches (CIN), 7 fields don't
+- Score is extremely low — records are never linked
+- Analogy: two NY residents share the same DOB all the time; the MPI handles it
+- Conclusion: a missing CIN is dangerous (missed matches). A duplicate CIN is a non-event.
+
+---
+
+## Story 3: The Ask (roughed out)
+
+Three technical paths depending on the QE:
+
+| QE | Path | What to do |
+|---|---|---|
+| Bronx RHIO | Add to file | Modify the demographic feed file submitted to statewide MPI |
+| HealthiX & HixNY | Add to API | Include CIN in the custom API that syncs with statewide Verato |
+| Everyone else | Local Verato | Get CIN into local Verato; flows via Verato-to-Verato sync |
+
+Sources of CIN: Medicaid MEF (already there), lab feeds, PCP/CCD feeds, ADT/hospital feeds, immunization registry.
+
+**Status: Roughed out, needs technical detail.**
+
+---
+
+## What's Done
+
+- [x] Maria's demographics defined (real NY addresses, local flavor)
+- [x] Each scene written as standalone markdown file
+- [x] index.html site with 3 stories on home page
+- [x] Story 1: Maria narrative with hover tooltips and life timeline
+- [x] Story 2: Tom Jones duplicate CIN counterargument
+- [x] Story 3: The Ask roughed out (3 QE paths)
+- [x] Steering files in .kiro/steering/ for Kiro guidance
+
+## What's Next
+
+- [ ] Flesh out "The Ask" with technical specs per QE
+- [ ] Detail the Verato-to-Verato sync mechanism
+- [ ] Detail the HealthiX/HixNY custom API modification
+- [ ] Quantify the gap (how many Medicaid members affected?)
+- [ ] Identify highest-impact feeds to target first
+- [ ] Add more stories / populations
+- [ ] Polish visual design
+
+---
+
+## How to Reproduce This Project
+
+If starting from scratch with another AI:
+
+1. Create `index.html` — a self-contained static site (no dependencies) hosted on AWS Amplify
+2. Use the demographic data in this file (Maria's 3 scenes + Tom Jones) as the source of truth
+3. The site tells 3 stories from a landing page: Maria, Duplicate CIN, The Ask
+4. Maria's story starts with HER (emotions, situation) before showing data
+5. Identity cards have hover tooltips with full demographics (color-coded: green=match, red=mismatch)
+6. The solution section is a life-journey TIMELINE (not just a table) — show time passing, life changing
+7. The audience understands MPI matching — speak to that expertise via the hover details
+8. Keep it one HTML file, inline CSS/JS, no build step
+9. All markdown files in `Maria/` folder document the data and narrative for reference
 
 ---
 
@@ -86,7 +139,8 @@ Replay the same story, but this time CIN A123B456 is in every feed. The MPI matc
 | File | Scene | Purpose |
 |------|-------|---------|
 | Maria-SignupForMedicaid.md | Medicaid Enrollment | Establish Maria, assign CIN |
-| maria-HIVPositives.md | HIV Diagnosis | Feed without CIN → new VeratoLinkID |
-| maria-pregnancy.md | Pregnancy | Feed without CIN + name change → third VeratoLinkID |
-| mpi-failure.md | The Problem | Three identities, one real person, zero linkage |
-| resolution-with-cin.md | The Solution | CIN in every feed → instant match → outreach fires |
+| maria-HIVPositives.md | HIV Diagnosis | Feed without CIN, new VeratoLinkID |
+| maria-pregnancy.md | Pregnancy | Feed without CIN, name change, third VeratoLinkID |
+| mpi-failure.md | The Problem | Three identities, one person, zero linkage |
+| resolution-with-cin.md | The Solution | CIN in every feed = instant match |
+| tom.md | Duplicate CIN | Same CIN, different person — MPI handles it correctly |

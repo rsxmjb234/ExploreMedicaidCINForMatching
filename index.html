@@ -694,6 +694,22 @@
                     </a>
                 </li>
                 <li>
+                    <a href="#" onclick="showStory('mef-insufficient'); return false;">
+                        <div>
+                            <div class="story-title">Why the Member File Alone Isn't Enough</div>
+                            <div class="story-desc">Loading the MEF tells us who's on Medicaid — but it can't tell us who's pregnant or HIV-positive. We need to connect clinical data.</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showStory('funding'); return false;">
+                        <div>
+                            <div class="story-title">How Will QEs Be Funded for This Work?</div>
+                            <div class="story-desc">Funding through Medicaid T&amp;M and the process for QEs to get approval. (Details coming soon.)</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
                     <a href="#" class="disabled">
                         <div>
                             <div class="story-title">More stories coming soon</div>
@@ -945,6 +961,356 @@
                 <div class="punchline" style="margin-top: 2rem;">
                     <h3>One field. One link. One Maria.</h3>
                     <p>CIN kept Maria whole across 4 years, 3 cities, and a name change. Without it, she's invisible to the programs designed to help her.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 2: CIN Mistake -->
+        <div id="story-cin-mistake" class="story-section">
+            <a class="back-link" onclick="showNav(); return false;">&larr; Back to all stories</a>
+
+            <div class="data-section">
+                <h2>What If Two People Have the Same CIN?</h2>
+                <p style="margin-bottom: 2rem; color: #555; font-size: 1.05rem;">A fair question. If we're adding CIN to matching, what happens when two records share the same CIN — through a typo, a system error, or some future edge case? The answer: the MPI handles it the same way it handles every other shared field. Because this already happens all the time.</p>
+
+                <h3 style="margin-bottom: 1rem; color: #16213e;">The MPI already deals with duplicate field values every day</h3>
+                <p style="color: #555; margin-bottom: 1.5rem;">The MPI constantly receives records where two different people share the same value in a field:</p>
+
+                <table class="data-table">
+                    <tr><th>Field</th><th>Do two people ever share the same value?</th><th>Does the MPI merge them?</th></tr>
+                    <tr><td>Date of Birth</td><td>Yes — constantly. Millions of NYers share a DOB.</td><td style="color: #27ae60; font-weight: 600;">No — other fields differ</td></tr>
+                    <tr><td>Address</td><td>Yes — roommates, families, apartments</td><td style="color: #27ae60; font-weight: 600;">No — other fields differ</td></tr>
+                    <tr><td>First Name</td><td>Yes — extremely common</td><td style="color: #27ae60; font-weight: 600;">No — other fields differ</td></tr>
+                    <tr><td>Phone Number</td><td>Yes — shared phones, old numbers recycled</td><td style="color: #27ae60; font-weight: 600;">No — other fields differ</td></tr>
+                    <tr><td style="background: #f0f4ff;"><strong>CIN</strong></td><td style="background: #f0f4ff;">Shouldn't happen — but if it does?</td><td style="background: #f0f4ff; color: #27ae60; font-weight: 600;"><strong>No — same logic applies</strong></td></tr>
+                </table>
+
+                <p style="color: #555; margin-top: 1.25rem; margin-bottom: 2rem;">CIN is treated like any other demographic field. It <strong>contributes</strong> to the match score. It doesn't override everything else. One matching field among many mismatches = no link.</p>
+
+                <h3 style="margin-bottom: 1rem; color: #16213e;">Let's look at Tom vs. Maria</h3>
+                <p style="margin-bottom: 1rem; color: #555;">Through a data entry error, Tom Jones was assigned the same CIN as Maria: <strong>A123B456</strong>. Here are their records side by side:</p>
+
+                <div class="identity-cards" style="grid-template-columns: 1fr 1fr; padding-bottom: 12rem;">
+                    <div class="id-card id-card-1" style="text-align: center;">
+                        <div class="id-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="15" r="8" fill="#3498db"/><path d="M8 38 Q20 30 32 38" fill="#3498db"/></svg>
+                        </div>
+                        <h4>Maria Alvarez</h4>
+                        <div class="id-detail">Albany, NY 12210</div>
+                        <div class="id-detail">DOB: 6/26/1997</div>
+                        <div class="id-detail">Female</div>
+                        <div class="id-link">CIN: A123B456</div>
+                        <div class="hover-hint">hover for full record</div>
+                        <div class="demo-tooltip">
+                            <div class="tooltip-title">Maria's Record (Medicaid MEF, 1/1/2019)</div>
+                            <table>
+                                <tr><td>First</td><td>Maria</td></tr>
+                                <tr><td>Last</td><td>Alvarez</td></tr>
+                                <tr><td>DOB</td><td>6/26/1997</td></tr>
+                                <tr><td>Gender</td><td>F</td></tr>
+                                <tr><td>Address</td><td>300 State Street</td></tr>
+                                <tr><td>City</td><td>Albany, NY 12210</td></tr>
+                                <tr><td>MRN</td><td>1234</td></tr>
+                                <tr><td>CIN</td><td class="field-match">A123B456</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="id-card id-card-2" style="text-align: center;">
+                        <div class="id-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="15" r="8" fill="#e74c3c"/><path d="M8 38 Q20 30 32 38" fill="#e74c3c"/></svg>
+                        </div>
+                        <h4>Tom Jones</h4>
+                        <div class="id-detail">Buffalo, NY 14201</div>
+                        <div class="id-detail">DOB: 11/3/1955</div>
+                        <div class="id-detail">Male</div>
+                        <div class="id-link">CIN: A123B456</div>
+                        <div class="hover-hint">hover for full record</div>
+                        <div class="demo-tooltip">
+                            <div class="tooltip-title">Tom's Record (HealthiX | Lab1, 3/15/2022)</div>
+                            <table>
+                                <tr><td>First</td><td class="field-mismatch">Tom</td></tr>
+                                <tr><td>Last</td><td class="field-mismatch">Jones</td></tr>
+                                <tr><td>DOB</td><td class="field-mismatch">11/3/1955</td></tr>
+                                <tr><td>Gender</td><td class="field-mismatch">M</td></tr>
+                                <tr><td>Address</td><td class="field-mismatch">42 Main Street</td></tr>
+                                <tr><td>City</td><td class="field-mismatch">Buffalo, NY 14201</td></tr>
+                                <tr><td>MRN</td><td class="field-mismatch">7788543</td></tr>
+                                <tr><td>CIN</td><td class="field-match">A123B456</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout callout-solution" style="margin-top: 0;">
+                    <strong>The MPI does NOT link these records.</strong>
+                    Look at the hover details: 1 field matches (CIN). 7 fields are completely different (name, DOB, gender, address, city, MRN). These two people are obviously not the same person. The MPI's scoring algorithm sees a very low match — they stay apart.
+                </div>
+
+                <h3 style="margin: 2.5rem 0 1rem; color: #16213e;">What Medicaid has told us about CIN</h3>
+                <p style="color: #555; margin-bottom: 1rem;">Medicaid has confirmed:</p>
+                <ul style="color: #555; margin-bottom: 1.5rem; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.5rem;">They <strong>never reuse</strong> CIN — once assigned, it's that person's for life</li>
+                    <li style="margin-bottom: 0.5rem;">They <strong>don't assign one CIN to multiple people</strong> (e.g., no shared mom/baby CIN)</li>
+                </ul>
+                <p style="color: #555; margin-bottom: 2rem;">That said, we're ready for typos or if that policy ever changes. The MPI treats CIN as one signal among many — it doesn't blindly merge on CIN alone.</p>
+
+                <h3 style="margin: 0 0 1rem; color: #16213e;">Think of CIN like a Date of Birth</h3>
+                <p style="color: #555; margin-bottom: 1.5rem;">DOB is one of the most powerful fields in matching. But it's not gospel — we don't merge two people just because they share a birthday. CIN works the same way:</p>
+
+                <table class="data-table">
+                    <tr>
+                        <th>Scenario</th>
+                        <th>What the MPI does</th>
+                        <th>Outcome</th>
+                    </tr>
+                    <tr>
+                        <td>Same CIN, very different demographics (Tom vs. Maria)</td>
+                        <td>Scores the pair — 1 match, 7 mismatches</td>
+                        <td style="color: #27ae60; font-weight: 600;">Correctly kept apart</td>
+                    </tr>
+                    <tr>
+                        <td>Same DOB, very different demographics</td>
+                        <td>Scores the pair — 1 match, many mismatches</td>
+                        <td style="color: #27ae60; font-weight: 600;">Correctly kept apart</td>
+                    </tr>
+                    <tr>
+                        <td>Same CIN + same name + same DOB, different address</td>
+                        <td>Scores the pair — many matches, 1 mismatch</td>
+                        <td style="color: #27ae60; font-weight: 600;">Correctly linked (same person moved)</td>
+                    </tr>
+                    <tr>
+                        <td style="background: #fff3f3;">No CIN, different address, same person</td>
+                        <td style="background: #fff3f3;">Not enough matching fields to be confident</td>
+                        <td style="background: #fff3f3; color: #c1121f; font-weight: 600;">Missed match — person is fragmented</td>
+                    </tr>
+                </table>
+
+                <div class="callout callout-solution" style="margin-top: 1.5rem;">
+                    <strong>CIN is a powerful fact that helps connect data — but it's not a simple truth that is gospel.</strong>
+                    It contributes to matching like DOB, address, or name. It makes the MPI better at linking records that belong together, without creating false links when records don't.
+                </div>
+
+                <div class="punchline" style="margin-top: 2rem;">
+                    <h3>The real risk isn't a duplicate CIN.</h3>
+                    <p>A duplicate CIN (typo, error) is something the MPI handles naturally — the same way it handles two people with the same birthday. The real risk is <strong>missing</strong> CIN, which causes the MPI to fragment real people into multiple identities. That's what hurts real patients like Maria.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 3: The Ask -->
+        <div id="story-the-ask" class="story-section">
+            <a class="back-link" onclick="showNav(); return false;">&larr; Back to all stories</a>
+
+            <div class="data-section">
+                <h2>The Ask: Getting CIN Into the Feeds</h2>
+                <p style="margin-bottom: 2rem; color: #555; font-size: 1.05rem;">We know CIN works. Now: how do we get it flowing? The path depends on how each QE connects to the statewide MPI.</p>
+
+                <h3 style="margin-bottom: 1rem; color: #16213e;">Three paths, one goal</h3>
+
+                <div class="identity-cards" style="grid-template-columns: 1fr 1fr 1fr; padding-bottom: 2rem;">
+                    <div class="id-card id-card-1" style="text-align: left;">
+                        <h4 style="text-align: center;">Bronx RHIO</h4>
+                        <div class="id-fact" style="text-align: center; margin-bottom: 0.75rem; color: #2980b9;">Add to file</div>
+                        <p style="font-size: 0.85rem; color: #555;">Modify the demographic feed file submitted to the statewide MPI to include the CIN field.</p>
+                    </div>
+                    <div class="id-card id-card-2" style="text-align: left;">
+                        <h4 style="text-align: center;">HealthiX &amp; HixNY</h4>
+                        <div class="id-fact" style="text-align: center; margin-bottom: 0.75rem; color: #c0392b;">Add to API</div>
+                        <p style="font-size: 0.85rem; color: #555;">Include CIN in the custom API that syncs patient demographics with the statewide Verato instance.</p>
+                    </div>
+                    <div class="id-card id-card-3" style="text-align: left;">
+                        <h4 style="text-align: center;">Everyone Else</h4>
+                        <div class="id-fact" style="text-align: center; margin-bottom: 0.75rem; color: #d35400;">Get into local Verato</div>
+                        <p style="font-size: 0.85rem; color: #555;">Get CIN into your local Verato instance first. It will flow to the statewide MPI via the Verato-to-Verato sync.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: #16213e;">Where does CIN come from?</h3>
+                <p style="color: #555; margin-bottom: 1rem;">As many places as possible. The more feeds that carry CIN, the stronger the matching becomes:</p>
+
+                <table class="data-table">
+                    <tr>
+                        <th>Source</th>
+                        <th>How CIN gets there</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Medicaid MEF (roster)</td>
+                        <td>Already has CIN — it's the source of truth</td>
+                        <td style="color: #27ae60; font-weight: 600;">Done</td>
+                    </tr>
+                    <tr>
+                        <td>Lab feeds</td>
+                        <td>Provider captures CIN at eligibility check, includes in lab message</td>
+                        <td style="color: #e67e22; font-weight: 600;">To do</td>
+                    </tr>
+                    <tr>
+                        <td>PCP / CCD feeds</td>
+                        <td>EHR includes CIN from registration, flows in CCD</td>
+                        <td style="color: #e67e22; font-weight: 600;">To do</td>
+                    </tr>
+                    <tr>
+                        <td>ADT / hospital feeds</td>
+                        <td>Admission registration captures CIN, includes in ADT</td>
+                        <td style="color: #e67e22; font-weight: 600;">To do</td>
+                    </tr>
+                    <tr>
+                        <td>Immunization registry</td>
+                        <td>Registry already verifies eligibility — add CIN to outbound</td>
+                        <td style="color: #e67e22; font-weight: 600;">To do</td>
+                    </tr>
+                </table>
+
+                <div class="punchline" style="margin-top: 2rem;">
+                    <h3>More detail coming soon.</h3>
+                    <p>We're working on the technical specifications for each path. The goal: CIN in every feed, from every QE, into the statewide MPI.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 4: Why MEF alone is insufficient -->
+        <div id="story-mef-insufficient" class="story-section">
+            <a class="back-link" onclick="showNav(); return false;">&larr; Back to all stories</a>
+
+            <div class="data-section">
+                <h2>Is the Member Roster Enough?</h2>
+                <p style="margin-bottom: 1rem; color: #555; font-size: 1.1rem; font-weight: 500;">Why do we need to add CIN to clinical data?</p>
+                <p style="margin-bottom: 2rem; color: #555; font-size: 1.05rem;">A reasonable question: "We already load the Medicaid Member Eligibility File (MEF) into the MPI. The MEF has CIN. Isn't that enough?" The answer is no — because the MEF only tells us who is <em>enrolled</em>. It doesn't tell us anything about their <em>health</em>.</p>
+
+                <div style="background: #f0f4ff; border: 2px solid #4361ee; border-radius: 10px; padding: 1.5rem; margin-bottom: 2rem;">
+                    <p style="font-size: 1rem; color: #16213e; margin-bottom: 0.75rem;"><strong>The core question:</strong></p>
+                    <p style="font-size: 1.1rem; color: #16213e; font-style: italic; margin-bottom: 0.75rem;">"Of all people on the Medicaid member roster, who is pregnant AND has an HIV diagnosis?"</p>
+                    <p style="font-size: 0.95rem; color: #555;">The MEF can tell us the first part (who's on the roster). But pregnancy and HIV come from <strong>clinical data</strong> — labs, PCP visits, clinical documents. That data lives in completely different systems.</p>
+                </div>
+
+                <h3 style="margin-bottom: 1rem; color: #16213e;">What the MEF gives us (and what it doesn't)</h3>
+
+                <table class="data-table">
+                    <tr><th>Field</th><th>In the MEF?</th><th>Why it matters</th></tr>
+                    <tr><td>Name</td><td style="color: #27ae60; font-weight: 600;">Yes</td><td>Identifies the member</td></tr>
+                    <tr><td>DOB</td><td style="color: #27ae60; font-weight: 600;">Yes</td><td>Matching</td></tr>
+                    <tr><td>Address</td><td style="color: #27ae60; font-weight: 600;">Yes</td><td>Matching (but changes)</td></tr>
+                    <tr><td>CIN</td><td style="color: #27ae60; font-weight: 600;">Yes</td><td>Permanent identifier</td></tr>
+                    <tr><td>Enrollment status</td><td style="color: #27ae60; font-weight: 600;">Yes</td><td>Active member</td></tr>
+                    <tr><td style="background: #fff3f3;">HIV diagnosis</td><td style="background: #fff3f3; color: #c1121f; font-weight: 600;">No</td><td style="background: #fff3f3;">Comes from lab feeds</td></tr>
+                    <tr><td style="background: #fff3f3;">Pregnancy status</td><td style="background: #fff3f3; color: #c1121f; font-weight: 600;">No</td><td style="background: #fff3f3;">Comes from PCP / clinical docs</td></tr>
+                    <tr><td style="background: #fff3f3;">Lab results</td><td style="background: #fff3f3; color: #c1121f; font-weight: 600;">No</td><td style="background: #fff3f3;">Comes from lab feeds</td></tr>
+                    <tr><td style="background: #fff3f3;">Medications</td><td style="background: #fff3f3; color: #c1121f; font-weight: 600;">No</td><td style="background: #fff3f3;">Comes from pharmacy / PCP</td></tr>
+                </table>
+
+                <div class="callout callout-problem" style="margin-top: 1.5rem;">
+                    <strong>The MEF has CIN — but it has no clinical data.</strong>
+                    The clinical data (labs, diagnoses, pregnancy) lives in separate feeds from different providers. Those feeds do NOT have CIN today. So even though the MEF links a CIN to a person, we can't link that person's clinical events back to their CIN.
+                </div>
+
+                <h3 style="margin: 2.5rem 0 1rem; color: #16213e;">The gap: clinical data doesn't carry CIN</h3>
+                <p style="color: #555; margin-bottom: 1.5rem;">Here's the disconnect. The MEF knows Maria is a Medicaid member (CIN A123B456). But the lab that reported her HIV result and the PCP that documented her pregnancy <strong>didn't include CIN in their data</strong>. So the SHIN-NY can't connect them.</p>
+                <div class="identity-cards" style="grid-template-columns: 1fr 1fr 1fr; padding-bottom: 2rem;">
+                    <div class="id-card id-card-1" style="text-align: center;">
+                        <div class="id-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40"><rect x="5" y="5" width="30" height="30" rx="4" fill="#3498db"/><text x="20" y="24" text-anchor="middle" fill="white" font-size="9" font-weight="bold">MEF</text></svg>
+                        </div>
+                        <h4>Medicaid MEF</h4>
+                        <p style="font-size: 0.85rem; color: #555; margin-top: 0.5rem;">Who is enrolled?</p>
+                        <div class="id-fact" style="color: #2980b9;">Maria is a member</div>
+                    </div>
+                    <div class="id-card id-card-2" style="text-align: center;">
+                        <div class="id-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40"><rect x="5" y="5" width="30" height="30" rx="4" fill="#e74c3c"/><text x="20" y="24" text-anchor="middle" fill="white" font-size="9" font-weight="bold">LAB</text></svg>
+                        </div>
+                        <h4>Lab Feed (HealthiX)</h4>
+                        <p style="font-size: 0.85rem; color: #555; margin-top: 0.5rem;">Who tested HIV-positive?</p>
+                        <div class="id-fact" style="color: #c0392b;">Maria has HIV</div>
+                    </div>
+                    <div class="id-card id-card-3" style="text-align: center;">
+                        <div class="id-icon">
+                            <svg width="40" height="40" viewBox="0 0 40 40"><rect x="5" y="5" width="30" height="30" rx="4" fill="#f39c12"/><text x="20" y="24" text-anchor="middle" fill="white" font-size="9" font-weight="bold">PCP</text></svg>
+                        </div>
+                        <h4>PCP Clinical (HixNY)</h4>
+                        <p style="font-size: 0.85rem; color: #555; margin-top: 0.5rem;">Who is pregnant?</p>
+                        <div class="id-fact" style="color: #d35400;">Maria is pregnant</div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 1.5rem 0 1rem; color: #16213e;">Why we need CIN in the clinical data — not just in the MEF</h3>
+                <p style="color: #555; margin-bottom: 1rem;">The MEF already has CIN. But that only helps if the clinical feeds <strong>also</strong> carry CIN. Without CIN in the lab feed and the PCP feed, the MPI has no reliable way to say "this lab result belongs to this Medicaid member."</p>
+
+                <p style="color: #555; margin-bottom: 1rem;">Think of it this way:</p>
+                <ul style="color: #555; margin-bottom: 1.5rem; padding-left: 1.5rem;">
+                    <li style="margin-bottom: 0.5rem;"><strong>MEF record:</strong> "Maria Alvarez, CIN A123B456, is on Medicaid" — great, we know she's enrolled.</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Lab result (no CIN):</strong> "Maria Alvarez, 126 Cross Street, Utica — HIV positive" — is this the same Maria? The MPI isn't sure. Different address, different MRN, no CIN to confirm.</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>Lab result (with CIN):</strong> "Maria Alvarez, CIN A123B456, 126 Cross Street, Utica — HIV positive" — instant match. Same CIN = same person. Done.</li>
+                </ul>
+
+                <p style="color: #555; margin-bottom: 1.5rem;">CIN in the MEF tells us who's a member. CIN <strong>in the clinical data</strong> tells us which clinical events belong to that member. You need both sides of the connection.</p>
+
+                <div style="background: #1a1a2e; border-radius: 10px; padding: 2rem; margin: 2rem 0;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                        <div style="background: #3498db; color: white; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; text-align: center;">MEF<br><span style="font-weight: 400; font-size: 0.8rem;">enrolled</span></div>
+                        <div style="color: #666; font-size: 1.5rem;">+</div>
+                        <div style="background: #e74c3c; color: white; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; text-align: center;">Lab<br><span style="font-weight: 400; font-size: 0.8rem;">HIV+</span></div>
+                        <div style="color: #666; font-size: 1.5rem;">+</div>
+                        <div style="background: #f39c12; color: white; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; text-align: center;">PCP<br><span style="font-weight: 400; font-size: 0.8rem;">pregnant</span></div>
+                        <div style="color: #666; font-size: 1.5rem;">=</div>
+                        <div style="background: #27ae60; color: white; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; text-align: center;">Answer<br><span style="font-weight: 400; font-size: 0.8rem;">outreach</span></div>
+                    </div>
+                    <p style="color: #aaa; text-align: center; margin-top: 1.25rem; font-size: 0.9rem;">All three must be linked to the same person. CIN makes that possible.</p>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: #16213e;">The status quo doesn't work</h3>
+
+                <table class="data-table">
+                    <tr>
+                        <th>Approach</th>
+                        <th>What it gives us</th>
+                        <th>What's missing</th>
+                    </tr>
+                    <tr>
+                        <td>Just load the MEF</td>
+                        <td>List of Medicaid members</td>
+                        <td style="color: #c1121f;">No clinical data — can't identify who is pregnant or HIV+</td>
+                    </tr>
+                    <tr>
+                        <td>MEF + lab feeds (no CIN in labs)</td>
+                        <td>Members in one system, labs in another</td>
+                        <td style="color: #c1121f;">Can't reliably link members to their lab results when they move</td>
+                    </tr>
+                    <tr>
+                        <td>MEF + labs + PCP (no CIN)</td>
+                        <td>Three pools of data</td>
+                        <td style="color: #c1121f;">MPI fragments records — Maria becomes 3 people</td>
+                    </tr>
+                    <tr style="background: #e8f5e9;">
+                        <td style="font-weight: 600;">MEF + labs + PCP (with CIN)</td>
+                        <td style="font-weight: 600;">All three linked by CIN</td>
+                        <td style="color: #27ae60; font-weight: 600;">Nothing — the question is answerable</td>
+                    </tr>
+                </table>
+
+                <div class="punchline" style="margin-top: 2rem;">
+                    <h3>The roster tells us who. The clinical data tells us what. CIN connects them.</h3>
+                    <p>The MEF is necessary — it identifies Medicaid members. But it's not sufficient. To answer questions like "who is pregnant and HIV-positive?", we need clinical data from labs and PCPs. And to connect that clinical data to the right member, those feeds need to carry CIN. Without CIN in the clinical feeds, the roster is just a list of names with no health context attached.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story 5: Funding -->
+        <div id="story-funding" class="story-section">
+            <a class="back-link" onclick="showNav(); return false;">&larr; Back to all stories</a>
+
+            <div class="data-section">
+                <h2>How Will QEs Be Funded for This Work?</h2>
+                <p style="margin-bottom: 2rem; color: #555; font-size: 1.05rem; font-style: italic;">Placeholder — Talha to work with Rebecca on language for how this is funded through Medicaid T&amp;M and process for QEs to get approval.</p>
+
+                <div class="callout callout-info" style="background: #f0f4ff; border-left: 4px solid #4361ee;">
+                    <strong>Coming soon.</strong>
+                    This section will cover:
+                    <ul style="margin-top: 0.75rem; padding-left: 1.25rem; color: #555;">
+                        <li>Funding mechanism through Medicaid Time &amp; Materials (T&amp;M)</li>
+                        <li>Process for QEs to get approval for this work</li>
+                        <li>Scope of what's covered</li>
+                        <li>Timeline expectations</li>
+                    </ul>
                 </div>
             </div>
         </div>
