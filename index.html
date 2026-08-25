@@ -248,6 +248,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 1.25rem;
             margin-bottom: 2rem;
+            padding-bottom: 12rem; /* space for tooltips */
         }
 
         @media (max-width: 750px) {
@@ -314,6 +315,102 @@
         .id-card-1 .id-fact { color: #2980b9; }
         .id-card-2 .id-fact { color: #c0392b; }
         .id-card-3 .id-fact { color: #d35400; }
+
+        .id-card .hover-hint {
+            font-size: 0.7rem;
+            color: #999;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Demographic tooltip on hover */
+        .id-card {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .id-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .id-card .demo-tooltip {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 10px;
+            background: #1a1a2e;
+            color: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            width: 280px;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            font-size: 0.8rem;
+            text-align: left;
+        }
+
+        .id-card:hover .demo-tooltip {
+            display: block;
+        }
+
+        .demo-tooltip::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid #1a1a2e;
+        }
+
+        .demo-tooltip table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .demo-tooltip td {
+            padding: 0.25rem 0.4rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            vertical-align: top;
+        }
+
+        .demo-tooltip td:first-child {
+            font-weight: 600;
+            color: #aaa;
+            width: 70px;
+            white-space: nowrap;
+        }
+
+        .demo-tooltip td:last-child {
+            color: #f0f0f0;
+        }
+
+        .demo-tooltip .field-match {
+            color: #6bdf6b;
+        }
+
+        .demo-tooltip .field-mismatch {
+            color: #ff7b7b;
+        }
+
+        .demo-tooltip .field-missing {
+            color: #ff7b7b;
+            font-style: italic;
+        }
+
+        .demo-tooltip .tooltip-title {
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
 
         /* Disconnect visual */
         .disconnect-visual {
@@ -581,6 +678,22 @@
                     </a>
                 </li>
                 <li>
+                    <a href="#" onclick="showStory('cin-mistake'); return false;">
+                        <div>
+                            <div class="story-title">What If the CIN Has a Mistake?</div>
+                            <div class="story-desc">Two people get the same CIN. Does that break matching? No — and here's why your MPI audience should not worry.</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="showStory('the-ask'); return false;">
+                        <div>
+                            <div class="story-title">The Ask</div>
+                            <div class="story-desc">How we get CIN into the feeds — modifying QE submissions, the Verato sync, and the HealthiX/HixNY custom API.</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
                     <a href="#" class="disabled">
                         <div>
                             <div class="story-title">More stories coming soon</div>
@@ -648,43 +761,10 @@
                 </div>
             </div>
 
-            <!-- The three parties who can't find each other -->
+            <!-- The problem — MPI sees 3 strangers -->
             <div class="problem-section">
-                <h2>Three parties. None can find each other.</h2>
-                <p class="problem-subtitle">Maria, Medicaid, and NYeC could solve this together — but the data doesn't connect them.</p>
-
-                <div class="three-parties">
-                    <div class="party">
-                        <div class="party-icon">
-                            <svg width="50" height="50" viewBox="0 0 50 50"><circle cx="25" cy="18" r="10" fill="#5b9bd5"/><path d="M10 45 Q25 35 40 45" fill="#5b9bd5"/></svg>
-                        </div>
-                        <h4>Maria</h4>
-                        <p>Pregnant, HIV-positive, on Medicaid. Wants prenatal HIV services.</p>
-                        <div class="party-wants">"I need help with my pregnancy and my HIV."</div>
-                    </div>
-                    <div class="party">
-                        <div class="party-icon">
-                            <svg width="50" height="50" viewBox="0 0 50 50"><rect x="8" y="10" width="34" height="30" rx="4" fill="#27ae60"/><text x="25" y="30" text-anchor="middle" fill="white" font-size="12" font-weight="bold">MCaid</text></svg>
-                        </div>
-                        <h4>Medicaid</h4>
-                        <p>Has a program for exactly this. Wants to find Maria and offer services.</p>
-                        <div class="party-wants">"We have services for her — if we can find her."</div>
-                    </div>
-                    <div class="party">
-                        <div class="party-icon">
-                            <svg width="50" height="50" viewBox="0 0 50 50"><rect x="8" y="10" width="34" height="30" rx="4" fill="#8e44ad"/><text x="25" y="30" text-anchor="middle" fill="white" font-size="11" font-weight="bold">NYeC</text></svg>
-                        </div>
-                        <h4>NYeC</h4>
-                        <p>Runs the health data exchange. Has the data from all three feeds. Could connect them.</p>
-                        <div class="party-wants">"We could link these records — if we had the right identifier."</div>
-                    </div>
-                </div>
-
-                <!-- The disconnect -->
-                <div class="disconnect-visual">
-                    <div class="no-link">They can't find each other.</div>
-                    <p>Because our MPI sees Maria as three different people.</p>
-                </div>
+                <h2>The Problem: Our MPI sees 3 strangers</h2>
+                <p class="problem-subtitle">Maria moved twice and changed her name. Without CIN in the feeds, the MPI can't link her records.</p>
 
                 <!-- Three identity cards -->
                 <h3 style="text-align:center; color: #c0392b; margin-bottom: 1.25rem; font-size: 1.2rem;">What the MPI sees: 3 strangers</h3>
@@ -698,6 +778,19 @@
                         <div class="id-detail">Medicaid MEF</div>
                         <div class="id-link">LinkID: 124252...</div>
                         <div class="id-fact">Medicaid Member</div>
+                        <div class="hover-hint">hover for demographics</div>
+                        <div class="demo-tooltip">
+                            <div class="tooltip-title">Record 1: Medicaid MEF (1/1/2019)</div>
+                            <table>
+                                <tr><td>First</td><td>Maria</td></tr>
+                                <tr><td>Last</td><td>Alvarez</td></tr>
+                                <tr><td>DOB</td><td>6/26/1997</td></tr>
+                                <tr><td>Address</td><td>300 State Street</td></tr>
+                                <tr><td>City</td><td>Albany, NY 12210</td></tr>
+                                <tr><td>MRN</td><td>1234</td></tr>
+                                <tr><td>CIN</td><td class="field-match">A123B456</td></tr>
+                            </table>
+                        </div>
                     </div>
                     <div class="id-card id-card-2">
                         <div class="id-icon">
@@ -708,6 +801,19 @@
                         <div class="id-detail">HealthiX | Lab1</div>
                         <div class="id-link">LinkID: 23456...</div>
                         <div class="id-fact">HIV-Positive</div>
+                        <div class="hover-hint">hover for demographics</div>
+                        <div class="demo-tooltip">
+                            <div class="tooltip-title">Record 2: HealthiX | Lab1 (1/1/2020)</div>
+                            <table>
+                                <tr><td>First</td><td class="field-match">Maria</td></tr>
+                                <tr><td>Last</td><td class="field-match">Alvarez</td></tr>
+                                <tr><td>DOB</td><td class="field-match">6/26/1997</td></tr>
+                                <tr><td>Address</td><td class="field-mismatch">126 Cross Street</td></tr>
+                                <tr><td>City</td><td class="field-mismatch">Utica, NY 3495</td></tr>
+                                <tr><td>MRN</td><td class="field-mismatch">34432432</td></tr>
+                                <tr><td>CIN</td><td class="field-missing">not included</td></tr>
+                            </table>
+                        </div>
                     </div>
                     <div class="id-card id-card-3">
                         <div class="id-icon">
@@ -718,6 +824,19 @@
                         <div class="id-detail">HixNY | PCP (CCD)</div>
                         <div class="id-link">LinkID: 78910...</div>
                         <div class="id-fact">Pregnant</div>
+                        <div class="hover-hint">hover for demographics</div>
+                        <div class="demo-tooltip">
+                            <div class="tooltip-title">Record 3: HixNY | PCP CCD (1/1/2023)</div>
+                            <table>
+                                <tr><td>First</td><td class="field-match">Maria</td></tr>
+                                <tr><td>Last</td><td class="field-mismatch">Rodriguez</td></tr>
+                                <tr><td>DOB</td><td class="field-match">6/26/1997</td></tr>
+                                <tr><td>Address</td><td class="field-mismatch">15-1 Olena Dr</td></tr>
+                                <tr><td>City</td><td class="field-mismatch">Whitesborough, NY 13492</td></tr>
+                                <tr><td>MRN</td><td class="field-mismatch">2132</td></tr>
+                                <tr><td>CIN</td><td class="field-missing">not included</td></tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -736,42 +855,66 @@
             <!-- The Solution -->
             <div id="solution-section" class="data-section">
                 <h2 style="color: #27ae60;">One field fixes everything.</h2>
-                <p style="margin-bottom: 1.5rem; color: #555; font-size: 1.05rem;">If the HIV feed and the pregnancy feed had included Maria's CIN, the MPI would have linked all three records instantly.</p>
+                <p style="margin-bottom: 2rem; color: #555; font-size: 1.05rem;">If the HIV feed and the pregnancy feed had included Maria's CIN, the MPI would have linked all three records instantly. Here's Maria's life — and how CIN keeps her whole.</p>
 
-                <table class="data-table">
-                    <tr>
-                        <th>Source</th>
-                        <th>Name</th>
-                        <th>City</th>
-                        <th>CIN</th>
-                        <th>Result</th>
-                    </tr>
-                    <tr>
-                        <td>Medicaid MEF</td>
-                        <td>Maria Alvarez</td>
-                        <td>Albany</td>
-                        <td class="highlight-cin">A123B456</td>
-                        <td>Medicaid member</td>
-                    </tr>
-                    <tr>
-                        <td>HealthiX | Lab1</td>
-                        <td>Maria Alvarez</td>
-                        <td>Utica</td>
-                        <td class="highlight-cin">A123B456</td>
-                        <td>HIV-positive</td>
-                    </tr>
-                    <tr>
-                        <td>HixNY | PCP (CCD)</td>
-                        <td>Maria Rodriguez</td>
-                        <td>Whitesborough</td>
-                        <td class="highlight-cin">A123B456</td>
-                        <td>Pregnant</td>
-                    </tr>
-                </table>
+                <!-- Maria's timeline -->
+                <div style="margin-bottom: 2rem;">
+                    <div style="border-left: 3px solid #4361ee; padding-left: 1.5rem; margin-left: 1rem;">
+
+                        <!-- 2019 -->
+                        <div style="margin-bottom: 2rem; position: relative;">
+                            <div style="position: absolute; left: -2.05rem; top: 0.3rem; width: 12px; height: 12px; background: #27ae60; border-radius: 50%;"></div>
+                            <div style="font-size: 0.8rem; color: #888; font-weight: 600;">JANUARY 2019</div>
+                            <h3 style="margin: 0.25rem 0 0.5rem; font-size: 1.1rem; color: #16213e;">Maria signs up for Medicaid</h3>
+                            <p style="color: #555; font-size: 0.95rem; margin-bottom: 0.75rem;">She's 21, living with her parents in Albany. Her mom helps her with the paperwork at the local DSS office. She's assigned CIN <strong>A123B456</strong>.</p>
+                            <table class="data-table" style="font-size: 0.85rem;">
+                                <tr><td style="width:90px; font-weight:600; color:#888;">Source</td><td>Medicaid MEF</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">Name</td><td>Maria Alvarez</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">DOB</td><td>6/26/1997</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">Address</td><td>300 State Street, Albany, NY 12210</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">MRN</td><td>1234</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">CIN</td><td class="highlight-cin">A123B456</td></tr>
+                            </table>
+                        </div>
+
+                        <!-- 2020 -->
+                        <div style="margin-bottom: 2rem; position: relative;">
+                            <div style="position: absolute; left: -2.05rem; top: 0.3rem; width: 12px; height: 12px; background: #e74c3c; border-radius: 50%;"></div>
+                            <div style="font-size: 0.8rem; color: #888; font-weight: 600;">JANUARY 2020</div>
+                            <h3 style="margin: 0.25rem 0 0.5rem; font-size: 1.1rem; color: #16213e;">Maria moves to her first apartment</h3>
+                            <p style="color: #555; font-size: 0.95rem; margin-bottom: 0.75rem;">She's ready to be on her own. She moves to Utica — a fresh start, a new city, ~90 miles from her parents. She gets tested at a local clinic. The result: HIV-positive.</p>
+                            <table class="data-table" style="font-size: 0.85rem;">
+                                <tr><td style="width:90px; font-weight:600; color:#888;">Source</td><td>HealthiX | Lab1</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">Name</td><td>Maria Alvarez</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">DOB</td><td>6/26/1997</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">Address</td><td>126 Cross Street, Utica, NY 3495</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">MRN</td><td>34432432</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">CIN</td><td class="highlight-cin">A123B456</td></tr>
+                            </table>
+                        </div>
+
+                        <!-- 2023 -->
+                        <div style="margin-bottom: 1rem; position: relative;">
+                            <div style="position: absolute; left: -2.05rem; top: 0.3rem; width: 12px; height: 12px; background: #f39c12; border-radius: 50%;"></div>
+                            <div style="font-size: 0.8rem; color: #888; font-weight: 600;">JANUARY 2023</div>
+                            <h3 style="margin: 0.25rem 0 0.5rem; font-size: 1.1rem; color: #16213e;">Maria moves in with her husband, changes her name</h3>
+                            <p style="color: #555; font-size: 0.95rem; margin-bottom: 0.75rem;">She married Carlos Rodriguez and moved to Whitesborough to be closer to his family. New last name, new address, new chapter. Her PCP confirms: she's pregnant.</p>
+                            <table class="data-table" style="font-size: 0.85rem;">
+                                <tr><td style="width:90px; font-weight:600; color:#888;">Source</td><td>HixNY | PCP (CCD)</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">Name</td><td>Maria Rodriguez</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">DOB</td><td>6/26/1997</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">Address</td><td>15-1 Olena Dr, Whitesborough, NY 13492</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">MRN</td><td>2132</td></tr>
+                                <tr><td style="font-weight:600; color:#888;">CIN</td><td class="highlight-cin">A123B456</td></tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
 
                 <div class="callout callout-solution">
-                    <strong>One CIN. One Maria. Instant match.</strong>
-                    CIN is deterministic — it matches or it doesn't. No scoring, no thresholds, no ambiguity. Despite different names, addresses, MRNs, and providers, CIN links them all. The outreach program finds Maria. Care coordination begins.
+                    <strong>Same CIN in every feed. One Maria across 4 years, 3 cities, and a name change.</strong>
+                    The MPI sees A123B456 each time. It links all three records under one identity — instantly, deterministically, no scoring needed. Medicaid knows she's enrolled, HIV-positive, and pregnant. Outreach fires. Maria gets help.
                 </div>
 
                 <div class="comparison">
@@ -800,9 +943,8 @@
                 </div>
 
                 <div class="punchline" style="margin-top: 2rem;">
-                    <h3>The ask is simple.</h3>
-                    <p>Include Medicaid CIN in every health data feed that might contain a Medicaid member. Providers already know the CIN — they verify eligibility before billing. It just needs to flow into the reporting feeds.</p>
-                    <p style="margin-top: 1rem; font-weight: 600; opacity: 1;">One field. One link. One Maria.</p>
+                    <h3>One field. One link. One Maria.</h3>
+                    <p>CIN kept Maria whole across 4 years, 3 cities, and a name change. Without it, she's invisible to the programs designed to help her.</p>
                 </div>
             </div>
         </div>
