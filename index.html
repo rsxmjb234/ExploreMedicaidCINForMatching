@@ -955,7 +955,7 @@
                 </div>
 
                 <h2>Meet Maria</h2>
-                <p class="subtitle">She's 26. She lives in upstate New York. And she needs help.</p>
+                <p class="subtitle">She's 26. She lives in upstate New York. She knows she needs help. She has no idea help is available.</p>
 
                 <div class="maria-feelings">
                     <div class="feeling feeling-excited">
@@ -964,13 +964,27 @@
                     </div>
                     <div class="feeling feeling-concerned">
                         <h3>She's concerned</h3>
-                        <p>Maria is HIV-positive. She knows this makes her pregnancy higher-risk and she wants specialized care to protect her baby.</p>
+                        <p>Maria is HIV-positive. She knows this makes her pregnancy higher-risk. She wants specialized care to protect her baby — she just doesn't know where to find it or that anyone is already looking out for her.</p>
                     </div>
                 </div>
 
                 <div class="maria-needs">
                     <h3>Maria is on Medicaid — and Medicaid wants to help her</h3>
-                    <p>New York Medicaid has specific programs for pregnant members who are HIV-positive: coordinated prenatal care, antiretroviral management, prevention of mother-to-child transmission. Maria qualifies. Maria wants these services. Medicaid wants to provide them.</p>
+                    <p>New York Medicaid has specific programs for pregnant members who are HIV-positive: coordinated prenatal care, antiretroviral management, prevention of mother-to-child transmission. Maria qualifies. Maria wants these services. Medicaid wants to provide them. Maria just doesn't know any of this exists — she's never been told, and nobody has reached out.</p>
+                </div>
+            </div>
+
+            <!-- The SHIN-NY as an actor -->
+            <div class="maria-intro" style="text-align: left;">
+                <div style="display: flex; gap: 1.25rem; align-items: flex-start;">
+                    <div style="width: 56px; height: 56px; border-radius: 50%; background: #eef1ff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="6" r="2.6" fill="#4361ee"/><circle cx="5" cy="16" r="2.6" fill="#4361ee" opacity="0.6"/><circle cx="19" cy="16" r="2.6" fill="#4361ee" opacity="0.8"/><line x1="12" y1="8.6" x2="5" y2="13.5" stroke="#4361ee" stroke-width="1.6"/><line x1="12" y1="8.6" x2="19" y2="13.5" stroke="#4361ee" stroke-width="1.6"/></svg>
+                    </div>
+                    <div>
+                        <h3 style="color: #16213e; margin-bottom: 0.5rem; font-size: 1.15rem;">Meanwhile, the SHIN-NY already knows</h3>
+                        <p style="color: #555; margin-bottom: 0.75rem;">When Maria's PCP documents her pregnancy, that clinical data flows into the SHIN-NY almost immediately. This is something claims data can't do — claims can lag weeks or months behind the actual visit. The SHIN-NY sees Maria's pregnancy in near real time.</p>
+                        <p style="color: #555;">The SHIN-NY exists to benefit Medicaid. It wants to get Maria's information to the people who can help her — the care coordination team that runs the prenatal HIV program. But right now, the SHIN-NY has no way to tell that team "this pregnant patient is also a Medicaid member who is HIV-positive." That's the missing link.</p>
+                    </div>
                 </div>
             </div>
 
@@ -980,7 +994,6 @@
                 <p class="problem-subtitle">Maria moved twice and changed her name. Without CIN in the feeds, the MPI can't link her records.</p>
 
                 <!-- Three identity cards -->
-                <h3 style="text-align:center; color: #c0392b; margin-bottom: 1.25rem; font-size: 1.2rem;">What the MPI sees: 3 strangers</h3>
                 <div class="identity-cards">
                     <div class="id-card id-card-1">
                         <div class="id-icon">
@@ -1060,7 +1073,7 @@
 
                 <div class="punchline">
                     <h3>Maria falls through the cracks.</h3>
-                    <p>Medicaid's outreach program queries: "Who is enrolled, HIV-positive, AND pregnant?" Maria should appear. She doesn't. No outreach fires. No care coordination begins. She's on her own.</p>
+                    <p>Medicaid's outreach program queries: "Who is enrolled, HIV-positive, AND pregnant?" Maria should appear. She doesn't. No outreach fires. No care coordination begins. The SHIN-NY knew about her pregnancy almost as soon as her PCP did — but it couldn't hand that information to the team that could help, because nothing tied her records together. Maria is still waiting for help she doesn't know exists.</p>
                     <a class="continue-btn" onclick="document.getElementById('solution-section').scrollIntoView({behavior:'smooth'}); return false;">See how CIN fixes this &darr;</a>
                 </div>
             </div>
@@ -1127,37 +1140,12 @@
 
                 <div class="callout callout-solution">
                     <strong>Same CIN in every feed. One Maria across 4 years, 3 cities, and a name change.</strong>
-                    The MPI sees A123B456 each time. It links all three records under one identity — instantly, deterministically, no scoring needed. Medicaid knows she's enrolled, HIV-positive, and pregnant. Outreach fires. Maria gets help.
-                </div>
-
-                <div class="comparison">
-                    <div class="comparison-panel without">
-                        <h4>Without CIN in feeds</h4>
-                        <ul>
-                            <li>3 VeratoLinkIDs</li>
-                            <li>3 unlinked identities</li>
-                            <li>Program can't find Maria</li>
-                            <li>No outreach</li>
-                            <li>No care coordination</li>
-                            <li>Maria is on her own</li>
-                        </ul>
-                    </div>
-                    <div class="comparison-panel with">
-                        <h4>With CIN in feeds</h4>
-                        <ul>
-                            <li>1 VeratoLinkID</li>
-                            <li>1 unified identity</li>
-                            <li>Program identifies Maria</li>
-                            <li>Outreach in days</li>
-                            <li>Prenatal HIV care coordination</li>
-                            <li>Maria and her baby get support</li>
-                        </ul>
-                    </div>
+                    The MPI sees A123B456 each time. It links all three records under one identity — instantly, deterministically, no scoring needed. Medicaid knows she's enrolled, HIV-positive, and pregnant. Outreach fires. Maria and her baby get the support they need.
                 </div>
 
                 <div class="punchline" style="margin-top: 2rem;">
                     <h3>One field. One link. One Maria.</h3>
-                    <p>CIN kept Maria whole across 4 years, 3 cities, and a name change. Without it, she's invisible to the programs designed to help her.</p>
+                    <p>CIN kept Maria whole across 4 years, 3 cities, and a name change. Now the SHIN-NY can do what it already wanted to do: pass her pregnancy and HIV status to Medicaid's care team the moment it learns about them — not months later, and not never. Maria finally gets the help she didn't know was waiting for her.</p>
                 </div>
             </div>
             <a class="back-link-bottom" onclick="showNav(); return false;">&larr; Back to all stories</a>
