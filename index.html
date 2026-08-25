@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Medicaid CIN Belongs in Every Data Feed</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background: #f8f9fa;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .story-nav {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .story-nav h2 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #16213e;
+        }
+
+        .story-list {
+            list-style: none;
+        }
+
+        .story-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .story-list a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            background: #f0f4ff;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #1a1a2e;
+            border-left: 4px solid #4361ee;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .story-list a:hover {
+            background: #e0e8ff;
+            transform: translateX(4px);
+        }
+
+        .story-list .story-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .story-list .story-desc {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 0.2rem;
+        }
+
+        .story-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: none;
+        }
+
+        .story-section.active {
+            display: block;
+        }
+
+        .story-section h2 {
+            color: #16213e;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .scene {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .scene:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .scene h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .scene-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .scene-number.green { background: #2d6a4f; }
+        .scene-number.orange { background: #e76f51; }
+        .scene-number.red { background: #c1121f; }
+        .scene-number.dark { background: #1a1a2e; }
+        .scene-number.blue { background: #4361ee; }
+
+        .scene p {
+            margin-bottom: 0.75rem;
+            color: #333;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 0.6rem 0.75rem;
+            text-align: left;
+            border: 1px solid #e0e0e0;
+        }
+
+        .data-table th {
+            background: #f0f4ff;
+            font-weight: 600;
+            color: #16213e;
+        }
+
+        .data-table .highlight-missing {
+            background: #fff3f3;
+            color: #c1121f;
+            font-style: italic;
+        }
+
+        .data-table .highlight-cin {
+            background: #e8f5e9;
+            color: #2d6a4f;
+            font-weight: 600;
+        }
+
+        .data-table .highlight-change {
+            background: #fff8e1;
+        }
+
+        .callout {
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin: 1.25rem 0;
+        }
+
+        .callout-problem {
+            background: #fff3f3;
+            border-left: 4px solid #c1121f;
+        }
+
+        .callout-solution {
+            background: #e8f5e9;
+            border-left: 4px solid #2d6a4f;
+        }
+
+        .callout-info {
+            background: #f0f4ff;
+            border-left: 4px solid #4361ee;
+        }
+
+        .callout strong {
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 700px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-panel {
+            padding: 1.25rem;
+            border-radius: 8px;
+        }
+
+        .comparison-panel.without {
+            background: #fff3f3;
+            border: 2px solid #c1121f;
+        }
+
+        .comparison-panel.with {
+            background: #e8f5e9;
+            border: 2px solid #2d6a4f;
+        }
+
+        .comparison-panel h4 {
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .comparison-panel ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-panel ul li {
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: #4361ee;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #888;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Why Medicaid CIN Belongs in Every Data Feed</h1>
+        <p>Real stories showing how missing identifiers fragment patient records and prevent care coordination for vulnerable New Yorkers.</p>
+    </header>
+
+    <div class="container">
+        <!-- Story Navigation -->
+        <div id="nav" class="story-nav">
+            <h2>Stories</h2>
+            <ul class="story-list">
+                <li>
+                    <a href="#" onclick="showStory('maria'); return false;">
+                        <div>
+                            <div class="story-title">Maria's Story</div>
+                            <div class="story-desc">A Medicaid member who is HIV-positive and pregnant — but the system sees three unlinked people.</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" style="opacity: 0.5; pointer-events: none; border-left-color: #ccc;">
+                        <div>
+                            <div class="story-title">More stories coming soon</div>
+                            <div class="story-desc">Additional scenarios showing the impact of missing CIN across different populations and conditions.</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Maria's Story -->
+        <div id="story-maria" class="story-section">
+            <a class="back-link" onclick="showNav(); return false;">&larr; Back to all stories</a>
+            <h2>Maria's Story</h2>
+            <p style="font-size: 1.05rem; margin-bottom: 2rem; color: #555;">Maria is a Medicaid member who is HIV-positive and pregnant. But no system can see all three facts are about the same person — because the feeds that carry her HIV result and pregnancy don't include her CIN.</p>
+
+            <!-- Scene 1 -->
+            <div class="scene">
+                <h3><span class="scene-number green">1</span> Maria Signs Up for Medicaid (2019)</h3>
+                <p>Maria lives with her parents in Albany. She enrolls in Medicaid and is assigned CIN <strong>A123B456</strong>.</p>
+
+                <table class="data-table">
+                    <tr><th>Field</th><th>Value</th></tr>
+                    <tr><td>When</td><td>1/1/2019</td></tr>
+                    <tr><td>Source</td><td>Medicaid MEF</td></tr>
+                    <tr><td>VeratoLinkID</td><td>124252...</td></tr>
+                    <tr><td>MRN</td><td>1234</td></tr>
+                    <tr><td>Name</td><td>Maria Alvarez</td></tr>
+                    <tr><td>DOB</td><td>6/26/1997</td></tr>
+                    <tr><td>Address</td><td>300 State Street, Albany, NY 12210</td></tr>
+                    <tr><td>CIN</td><td class="highlight-cin">A123B456</td></tr>
+                </table>
+
+                <div class="callout callout-info">
+                    <strong>One person. One record. One CIN.</strong>
+                    Everything is clean. The MPI sees one Maria.
+                </div>
+            </div>
+
+            <!-- Scene 2 -->
+            <div class="scene">
+                <h3><span class="scene-number orange">2</span> Maria Tests HIV-Positive (2020)</h3>
+                <p>Maria has moved to Utica. She tests HIV-positive. The lab result flows through HealthiX — but <strong>does not include CIN</strong>.</p>
+
+                <table class="data-table">
+                    <tr><th>Field</th><th>Value</th></tr>
+                    <tr><td>When</td><td>1/1/2020</td></tr>
+                    <tr><td>Source</td><td>HealthiX | Lab1</td></tr>
+                    <tr><td>VeratoLinkID</td><td class="highlight-change">23456...</td></tr>
+                    <tr><td>MRN</td><td class="highlight-change">34432432</td></tr>
+                    <tr><td>Name</td><td>Maria Alvarez</td></tr>
+                    <tr><td>DOB</td><td>6/26/1997</td></tr>
+                    <tr><td>Address</td><td class="highlight-change">126 Cross Street, Utica, NY 3495</td></tr>
+                    <tr><td>CIN</td><td class="highlight-missing">not included</td></tr>
+                </table>
+
+                <div class="callout callout-problem">
+                    <strong>The MPI creates a second identity.</strong>
+                    Different address + different MRN + no CIN = no link. Maria is now two people: VeratoLinkID 124252... (Albany) and 23456... (Utica).
+                </div>
+            </div>
+
+            <!-- Scene 3 -->
+            <div class="scene">
+                <h3><span class="scene-number red">3</span> Maria Is Pregnant (2023)</h3>
+                <p>Maria has moved to Whitesborough and changed her last name to Rodriguez. Her PCP confirms pregnancy — but the CCD feed <strong>does not include CIN</strong>.</p>
+
+                <table class="data-table">
+                    <tr><th>Field</th><th>Value</th></tr>
+                    <tr><td>When</td><td>1/1/2023</td></tr>
+                    <tr><td>Source</td><td>HixNY | PCP (CCD)</td></tr>
+                    <tr><td>VeratoLinkID</td><td class="highlight-change">78910...</td></tr>
+                    <tr><td>MRN</td><td class="highlight-change">2132</td></tr>
+                    <tr><td>Name</td><td class="highlight-change">Maria Rodriguez</td></tr>
+                    <tr><td>DOB</td><td>6/26/1997</td></tr>
+                    <tr><td>Address</td><td class="highlight-change">15-1 Olena Dr, Whitesborough, NY 13492</td></tr>
+                    <tr><td>CIN</td><td class="highlight-missing">not included</td></tr>
+                </table>
+
+                <div class="callout callout-problem">
+                    <strong>The MPI creates a third identity.</strong>
+                    New name + new address + new MRN + no CIN = no link. Maria is now three people.
+                </div>
+            </div>
+
+            <!-- Scene 4 -->
+            <div class="scene">
+                <h3><span class="scene-number dark">4</span> The System Fails Maria</h3>
+                <p>Medicaid has a program for pregnant HIV-positive members — coordinated prenatal care, antiretroviral support, prevention of mother-to-child transmission.</p>
+                <p>The program queries: <em>"Show me members who are Medicaid-enrolled AND HIV-positive AND pregnant."</em></p>
+
+                <table class="data-table">
+                    <tr><th>VeratoLinkID</th><th>What the System Knows</th><th>What's Missing</th></tr>
+                    <tr><td>124252...</td><td>Maria Alvarez, Albany — Medicaid member</td><td>No HIV, no pregnancy</td></tr>
+                    <tr><td>23456...</td><td>Maria Alvarez, Utica — HIV-positive</td><td>No Medicaid, no pregnancy</td></tr>
+                    <tr><td>78910...</td><td>Maria Rodriguez, Whitesborough — Pregnant</td><td>No Medicaid, no HIV</td></tr>
+                </table>
+
+                <div class="callout callout-problem">
+                    <strong>Maria is not identified. No outreach is triggered.</strong>
+                    She navigates a high-risk pregnancy with HIV without the support Medicaid designed for her.
+                </div>
+            </div>
+
+            <!-- Scene 5 -->
+            <div class="scene">
+                <h3><span class="scene-number blue">5</span> How CIN Fixes This</h3>
+                <p>Now replay the same story — but this time, every feed includes Maria's CIN.</p>
+
+                <table class="data-table">
+                    <tr><th>Source</th><th>Name</th><th>City</th><th>CIN</th></tr>
+                    <tr><td>Medicaid MEF</td><td>Maria Alvarez</td><td>Albany</td><td class="highlight-cin">A123B456</td></tr>
+                    <tr><td>HealthiX | Lab1</td><td>Maria Alvarez</td><td>Utica</td><td class="highlight-cin">A123B456</td></tr>
+                    <tr><td>HixNY | PCP (CCD)</td><td>Maria Rodriguez</td><td>Whitesborough</td><td class="highlight-cin">A123B456</td></tr>
+                </table>
+
+                <div class="callout callout-solution">
+                    <strong>One CIN. One person. Instant match.</strong>
+                    Despite different names, addresses, MRNs, and providers — CIN links all three records deterministically. The MPI resolves them to a single identity. Outreach fires. Maria gets help.
+                </div>
+
+                <div class="comparison">
+                    <div class="comparison-panel without">
+                        <h4>Without CIN in feeds</h4>
+                        <ul>
+                            <li>3 VeratoLinkIDs</li>
+                            <li>3 unlinked identities</li>
+                            <li>Program can't find Maria</li>
+                            <li>No outreach</li>
+                            <li>No care coordination</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-panel with">
+                        <h4>With CIN in feeds</h4>
+                        <ul>
+                            <li>1 VeratoLinkID</li>
+                            <li>1 unified identity</li>
+                            <li>Program identifies Maria</li>
+                            <li>Outreach in days</li>
+                            <li>Prenatal HIV care coordination</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Exploring the case for Medicaid CIN in health data feeds &mdash; New York e-Health Collaborative</p>
+    </footer>
+
+    <script>
+        function showStory(id) {
+            document.getElementById('nav').style.display = 'none';
+            document.getElementById('story-' + id).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showNav() {
+            document.querySelectorAll('.story-section').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            document.getElementById('nav').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
