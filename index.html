@@ -876,16 +876,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="story-card" style="--accent:#27ae60; --accent-soft:#eaf7ef;" onclick="showStory('the-ask'); return false;">
-                        <div class="story-icon" style="background:#eaf7ef;">
-                            <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#27ae60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </div>
-                        <div class="story-title">The Ask</div>
-                        <div class="story-desc">How we get CIN into the feeds — QE submissions, the Verato sync, and custom APIs.</div>
-                        <div class="story-tag">The plan &rarr;</div>
-                    </a>
-                </li>
-                <li>
                     <a href="#" class="story-card" style="--accent:#f39c12; --accent-soft:#fef6e7;" onclick="showStory('mef-insufficient'); return false;">
                         <div class="story-icon" style="background:#fef6e7;">
                             <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#f39c12" stroke-width="2"/><path d="M8 9h8M8 13h5" stroke="#f39c12" stroke-width="2" stroke-linecap="round"/></svg>
@@ -903,6 +893,16 @@
                         <div class="story-title">How Will QEs Be Funded?</div>
                         <div class="story-desc">Funding through Medicaid T&amp;M and the QE approval process. Details coming soon.</div>
                         <div class="story-tag">In progress &rarr;</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="story-card" style="--accent:#27ae60; --accent-soft:#eaf7ef;" onclick="showStory('the-ask'); return false;">
+                        <div class="story-icon" style="background:#eaf7ef;">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#27ae60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="story-title">The Ask</div>
+                        <div class="story-desc">How we get CIN into the feeds — QE submissions, the Verato sync, and custom APIs.</div>
+                        <div class="story-tag">The plan &rarr;</div>
                     </a>
                 </li>
                 <li>
@@ -1301,68 +1301,37 @@
             <a class="back-link" onclick="showNav(); return false;">&larr; Back to all stories</a>
 
             <div class="data-section">
-                <h2>The Ask: Getting CIN Into the Feeds</h2>
-                <p style="margin-bottom: 2rem; color: #555; font-size: 1.05rem;">We know CIN works. Now: how do we get it flowing? The path depends on how each QE connects to the statewide MPI.</p>
+                <h2>The Ask</h2>
+                <p style="margin-bottom: 2rem; color: #555; font-size: 1.05rem;">We're asking two things of QEs.</p>
 
-                <h3 style="margin-bottom: 1rem; color: #16213e;">Three paths, one goal</h3>
-
-                <div class="identity-cards" style="grid-template-columns: 1fr 1fr 1fr; padding-bottom: 2rem;">
-                    <div class="id-card id-card-1" style="text-align: left;">
-                        <h4 style="text-align: center;">Bronx RHIO</h4>
-                        <div class="id-fact" style="text-align: center; margin-bottom: 0.75rem; color: #2980b9;">Add to file</div>
-                        <p style="font-size: 0.85rem; color: #555;">Modify the demographic feed file submitted to the statewide MPI to include the CIN field.</p>
-                    </div>
-                    <div class="id-card id-card-2" style="text-align: left;">
-                        <h4 style="text-align: center;">HealthiX &amp; HixNY</h4>
-                        <div class="id-fact" style="text-align: center; margin-bottom: 0.75rem; color: #c0392b;">Add to API</div>
-                        <p style="font-size: 0.85rem; color: #555;">Include CIN in the custom API that syncs patient demographics with the statewide Verato instance.</p>
-                    </div>
-                    <div class="id-card id-card-3" style="text-align: left;">
-                        <h4 style="text-align: center;">Everyone Else</h4>
-                        <div class="id-fact" style="text-align: center; margin-bottom: 0.75rem; color: #d35400;">Get into local Verato</div>
-                        <p style="font-size: 0.85rem; color: #555;">Get CIN into your local Verato instance first. It will flow to the statewide MPI via the Verato-to-Verato sync.</p>
+                <!-- Ask #1 -->
+                <div style="display: flex; gap: 1.25rem; margin-bottom: 2.5rem; align-items: flex-start;">
+                    <div style="width: 48px; height: 48px; border-radius: 50%; background: #4361ee; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 800; flex-shrink: 0;">1</div>
+                    <div>
+                        <h3 style="color: #16213e; margin-bottom: 0.5rem;">Get Medicaid CIN into your infrastructure</h3>
+                        <p style="color: #555; margin-bottom: 0.75rem;">On as many feeds as possible, from as diverse a set of sources as possible, capture the Medicaid CIN and bring it into your QE's systems. Labs, PCP visits, ADTs, CCDs, immunizations — anywhere a Medicaid member shows up.</p>
+                        <p style="color: #555;">If you already have it — great! The more feeds that carry CIN, the stronger the matching becomes across the network.</p>
                     </div>
                 </div>
 
-                <h3 style="margin: 2rem 0 1rem; color: #16213e;">Where does CIN come from?</h3>
-                <p style="color: #555; margin-bottom: 1rem;">As many places as possible. The more feeds that carry CIN, the stronger the matching becomes:</p>
+                <!-- Ask #2 -->
+                <div style="display: flex; gap: 1.25rem; margin-bottom: 2.5rem; align-items: flex-start;">
+                    <div style="width: 48px; height: 48px; border-radius: 50%; background: #27ae60; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 800; flex-shrink: 0;">2</div>
+                    <div>
+                        <h3 style="color: #16213e; margin-bottom: 0.5rem;">Convey those CINs (along with MRNs) to the NYeC Verato MPI</h3>
+                        <p style="color: #555;">Send the CIN alongside your existing MRN data when you sync with the statewide Verato MPI. The mechanism depends on your QE — file submission, API call, or Verato-to-Verato sync — but the goal is the same: get CIN into the statewide identity layer.</p>
+                    </div>
+                </div>
 
-                <table class="data-table">
-                    <tr>
-                        <th>Source</th>
-                        <th>How CIN gets there</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td>Medicaid MEF (roster)</td>
-                        <td>Already has CIN — it's the source of truth</td>
-                        <td style="color: #27ae60; font-weight: 600;">Done</td>
-                    </tr>
-                    <tr>
-                        <td>Lab feeds</td>
-                        <td>Provider captures CIN at eligibility check, includes in lab message</td>
-                        <td style="color: #e67e22; font-weight: 600;">To do</td>
-                    </tr>
-                    <tr>
-                        <td>PCP / CCD feeds</td>
-                        <td>EHR includes CIN from registration, flows in CCD</td>
-                        <td style="color: #e67e22; font-weight: 600;">To do</td>
-                    </tr>
-                    <tr>
-                        <td>ADT / hospital feeds</td>
-                        <td>Admission registration captures CIN, includes in ADT</td>
-                        <td style="color: #e67e22; font-weight: 600;">To do</td>
-                    </tr>
-                    <tr>
-                        <td>Immunization registry</td>
-                        <td>Registry already verifies eligibility — add CIN to outbound</td>
-                        <td style="color: #e67e22; font-weight: 600;">To do</td>
-                    </tr>
-                </table>
+                <!-- Local MPI note -->
+                <div style="background: #f8f9fa; border: 1px solid #e0e3eb; border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <h3 style="color: #16213e; margin-bottom: 0.5rem; font-size: 1rem;">What about the local MPI?</h3>
+                    <p style="color: #555;">Whether you also add CIN to your local matching algorithm is a <strong>local decision</strong>. We are not giving direction on the local MPI. Our ask is specifically about getting CIN to the NYeC statewide Verato MPI so the SHIN-NY can link records across QEs.</p>
+                </div>
 
                 <div class="punchline" style="margin-top: 2rem;">
-                    <h3>More detail coming soon.</h3>
-                    <p>We're working on the technical specifications for each path. The goal: CIN in every feed, from every QE, into the statewide MPI.</p>
+                    <h3>Two asks. One goal.</h3>
+                    <p>Get CIN into your infrastructure from as many sources as possible. Then pass it to the statewide MPI. That's how we keep people like Maria whole across the network.</p>
                 </div>
             </div>
             <a class="back-link-bottom" onclick="showNav(); return false;">&larr; Back to all stories</a>
