@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What About Other Payer IDs? — Medicaid CIN Matching</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background: linear-gradient(180deg, #f4f6fb 0%, #f8f9fa 300px);
+        }
+        .topbar {
+            background: #1a1a2e;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+        .topbar .logo-mark { width: 34px; height: 34px; flex-shrink: 0; }
+        .topbar .topbar-title { font-size: 1.05rem; font-weight: 700; }
+        .topbar .topbar-title span { font-weight: 400; opacity: 0.7; font-size: 0.85rem; display: block; margin-top: -2px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: #4361ee;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .data-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .data-section h2 { color: #16213e; margin-bottom: 1.5rem; font-size: 1.5rem; }
+        .punchline {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 10px;
+            color: white;
+            margin-top: 2rem;
+        }
+        .punchline h3 { font-size: 1.4rem; margin-bottom: 0.75rem; }
+        .punchline p { opacity: 0.85; max-width: 600px; margin: 0 auto; font-size: 1rem; }
+        .timeline { border-left: 3px solid #6c757d; padding-left: 1.5rem; margin: 2rem 0 2rem 1rem; }
+        .timeline-step { margin-bottom: 2rem; position: relative; }
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: -2.05rem;
+            top: 0.4rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .timeline-step.active::before { background: #27ae60; }
+        .timeline-step.future::before { background: #6c757d; border: 2px solid #6c757d; background: white; }
+        .timeline-step h3 { font-size: 1.1rem; color: #16213e; margin-bottom: 0.4rem; }
+        .timeline-step p { color: #555; font-size: 0.95rem; }
+        .timeline-step .step-label { font-size: 0.8rem; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .back-link-bottom {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            color: #4361ee;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid #4361ee;
+            border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .back-link-bottom:hover { background: #4361ee; color: white; }
+        footer {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            color: #9a9eb0;
+            font-size: 0.85rem;
+            border-top: 1px solid #eceef5;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <svg class="logo-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="19" fill="#4361ee"/>
+            <circle cx="13" cy="14" r="3.4" fill="white"/>
+            <circle cx="27" cy="14" r="3.4" fill="white" opacity="0.55"/>
+            <circle cx="20" cy="27" r="3.4" fill="white" opacity="0.85"/>
+            <line x1="13" y1="14" x2="20" y2="27" stroke="white" stroke-width="1.6" opacity="0.6"/>
+            <line x1="27" y1="14" x2="20" y2="27" stroke="white" stroke-width="1.6" stroke-dasharray="2 2" opacity="0.6"/>
+        </svg>
+        <div class="topbar-title">Medicaid CIN Matching<span>New York e-Health Collaborative</span></div>
+    </div>
+
+    <div class="container">
+        <a class="back-link" href="index.html">&larr; Back to all stories</a>
+
+        <div class="data-section">
+            <h2>What About Other Payer IDs?</h2>
+
+            <p style="margin-bottom: 1.5rem; color: #555; font-size: 1.05rem;">A natural question. If adding CIN to the MPI improves matching for Medicaid members, shouldn't we do the same for commercial payers — UnitedHealthcare subscriber IDs, Aetna member numbers, CDPHP IDs?</p>
+
+            <p style="margin-bottom: 1.5rem; color: #555;">Yes. Eventually. But we're starting with Medicaid for clear reasons.</p>
+
+            <h3 style="margin: 2rem 0 1rem; color: #16213e;">Why Medicaid first</h3>
+
+            <ul style="color: #555; padding-left: 1.5rem; margin-bottom: 2rem;">
+                <li style="margin-bottom: 0.75rem;"><strong>We are predominantly funded by Medicaid.</strong> The SHIN-NY exists in large part to serve this population. They come first.</li>
+                <li style="margin-bottom: 0.75rem;"><strong>Medicaid members are the most vulnerable.</strong> They move more frequently, change providers more often, and have the most to gain from better matching — as Maria's story shows.</li>
+                <li style="margin-bottom: 0.75rem;"><strong>CIN is a single, statewide identifier.</strong> Every Medicaid member in New York gets one CIN from one source. Commercial payers each have their own schemes — that's more complex to implement.</li>
+                <li style="margin-bottom: 0.75rem;"><strong>We want to prove the model first.</strong> Getting CIN right will teach us what works, what challenges arise, and how to design the approach for other payer IDs.</li>
+            </ul>
+
+            <h3 style="margin: 2rem 0 1rem; color: #16213e;">The roadmap</h3>
+
+            <div class="timeline">
+                <div class="timeline-step active">
+                    <div class="step-label">Now</div>
+                    <h3>Medicaid CIN</h3>
+                    <p>Get CIN into QE infrastructure, convey to statewide MPI. Prove the model. Measure improvement in matching for Medicaid members.</p>
+                </div>
+                <div class="timeline-step future">
+                    <div class="step-label">Next</div>
+                    <h3>Learn and refine</h3>
+                    <p>Understand what worked, what didn't. Document the integration patterns. Identify what's reusable for other payer identifiers.</p>
+                </div>
+                <div class="timeline-step future">
+                    <div class="step-label">Future</div>
+                    <h3>Other payer IDs</h3>
+                    <p>Apply the lessons from CIN to commercial payer member IDs. The infrastructure and patterns we build now will inform the design for those identifiers.</p>
+                </div>
+            </div>
+
+            <h3 style="margin: 2rem 0 1rem; color: #16213e;">What CIN teaches us about other payer IDs</h3>
+
+            <p style="color: #555; margin-bottom: 1rem;">The CIN work will answer questions that apply to any payer identifier:</p>
+
+            <ul style="color: #555; padding-left: 1.5rem; margin-bottom: 1.5rem;">
+                <li style="margin-bottom: 0.5rem;">How do QEs best capture payer IDs from clinical feeds?</li>
+                <li style="margin-bottom: 0.5rem;">How does the MPI weight a payer ID in the match algorithm?</li>
+                <li style="margin-bottom: 0.5rem;">What happens when a payer ID has errors or duplicates?</li>
+                <li style="margin-bottom: 0.5rem;">What's the measurable improvement in match rates?</li>
+                <li style="margin-bottom: 0.5rem;">What's the QE level of effort and how is it funded?</li>
+            </ul>
+
+            <p style="color: #555;">We believe CIN will directly inform the design for other payers. Get this right, and scaling to commercial payer IDs becomes a known problem rather than an unknown one.</p>
+
+            <div class="punchline">
+                <h3>Medicaid first. Get 100% through their members. Then expand.</h3>
+                <p>We owe it to our primary funder and to the population we exist to serve. Once CIN is proven, the path to other payer IDs will be clear — and built on real experience, not guesswork.</p>
+            </div>
+        </div>
+
+        <a class="back-link-bottom" href="index.html">&larr; Back to all stories</a>
+    </div>
+
+    <footer>
+        <p>Exploring the case for Medicaid CIN in health data feeds &mdash; New York e-Health Collaborative</p>
+    </footer>
+</body>
+</html>
