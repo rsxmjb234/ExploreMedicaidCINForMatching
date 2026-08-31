@@ -408,6 +408,29 @@
             margin-bottom: 0.75rem;
         }
 
+        /* Prominent source-type badge at top of each identity card */
+        .source-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: calc(100% + 3rem);
+            margin: -1.5rem -1.5rem 1rem -1.5rem;
+            padding: 0.7rem 1rem;
+            border-radius: 8px 8px 0 0;
+            color: white;
+        }
+
+        .source-badge span {
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+        }
+
+        .source-badge svg {
+            flex-shrink: 0;
+        }
+
         .id-card h4 {
             font-size: 0.95rem;
             margin-bottom: 0.5rem;
@@ -997,13 +1020,13 @@
                 <!-- Three identity cards -->
                 <div class="identity-cards">
                     <div class="id-card id-card-1">
-                        <div class="id-icon">
-                            <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="15" r="8" fill="#3498db"/><path d="M8 38 Q20 30 32 38" fill="#3498db"/></svg>
+                        <div class="source-badge" style="background:#3498db;">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M6 2h8l4 4v16H6z" fill="white"/><path d="M14 2v4h4" fill="#2b7bbf"/><path d="M8.5 11h7M8.5 14h7M8.5 17h4" stroke="#3498db" stroke-width="1.4" stroke-linecap="round"/></svg>
+                            <span>FROM A FILE</span>
                         </div>
                         <h4>Maria Alvarez</h4>
                         <div class="id-detail">Albany, NY</div>
-                        <div class="id-detail">Medicaid MEF</div>
-                        <div class="id-link">LinkID: 124252...</div>
+                        <div class="id-detail">Source: Medicaid MEF</div>
                         <div class="id-fact">Medicaid Member</div>
                         <div class="hover-hint">hover for demographics</div>
                         <div class="demo-tooltip">
@@ -1020,14 +1043,14 @@
                         </div>
                     </div>
                     <div class="id-card id-card-2">
-                        <div class="id-icon">
-                            <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="15" r="8" fill="#e74c3c"/><path d="M8 38 Q20 30 32 38" fill="#e74c3c"/></svg>
+                        <div class="source-badge" style="background:#e74c3c;">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 8h4V4h8v4h4v8h-4v4H8v-4H4z" fill="white"/><path d="M9.5 12h5M12 9.5v5" stroke="#e74c3c" stroke-width="1.6" stroke-linecap="round"/></svg>
+                            <span>HIV POSITIVE</span>
                         </div>
                         <h4>Maria Alvarez</h4>
                         <div class="id-detail">Utica, NY</div>
-                        <div class="id-detail">HealthiX | Lab1</div>
-                        <div class="id-link">LinkID: 23456...</div>
-                        <div class="id-fact">HIV-Positive</div>
+                        <div class="id-detail">Source: HealthiX Lab</div>
+                        <div class="id-fact">HIV-Positive Lab Result</div>
                         <div class="hover-hint">hover for demographics</div>
                         <div class="demo-tooltip">
                             <div class="tooltip-title">Record 2: HealthiX | Lab1 (1/1/2020)</div>
@@ -1043,14 +1066,14 @@
                         </div>
                     </div>
                     <div class="id-card id-card-3">
-                        <div class="id-icon">
-                            <svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="15" r="8" fill="#f39c12"/><path d="M8 38 Q20 30 32 38" fill="#f39c12"/></svg>
+                        <div class="source-badge" style="background:#f39c12;">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="6" r="2.4" fill="white"/><path d="M12 9c-2 0-3.2 1.4-3.4 3.4l-.6 5c-.1.9.6 1.6 1.5 1.6h.5l.4 3.5h3.2l.4-3.5h.5c.9 0 1.6-.7 1.5-1.6l-.6-5C15.2 10.4 14 9 12 9z" fill="white"/><circle cx="14.5" cy="15" r="2" fill="#f39c12"/></svg>
+                            <span>PREGNANT</span>
                         </div>
                         <h4>Maria Rodriguez</h4>
                         <div class="id-detail">Whitesborough, NY</div>
-                        <div class="id-detail">HixNY | PCP (CCD)</div>
-                        <div class="id-link">LinkID: 78910...</div>
-                        <div class="id-fact">Pregnant</div>
+                        <div class="id-detail">Source: HixNY PCP (CCD)</div>
+                        <div class="id-fact">Pregnancy Confirmed</div>
                         <div class="hover-hint">hover for demographics</div>
                         <div class="demo-tooltip">
                             <div class="tooltip-title">Record 3: HixNY | PCP CCD (1/1/2023)</div>
